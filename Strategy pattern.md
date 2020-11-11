@@ -1,4 +1,6 @@
 # 들어가면서  
+<img width="832" alt="스크린샷 2020-11-11 오후 2 36 26" src="https://user-images.githubusercontent.com/50267433/98773008-5b5dce00-242b-11eb-9f09-149c6710d370.png">
+
 목차
    
 ## 전략 패턴이란?   
