@@ -28,11 +28,11 @@
 2. 변경(확장)될 것을 인터페이스로 추출하여 Strategy 정의
 3. Strategy 인터페이스를 구현한 ConcreateStrategy 클래스 정의
 4. Context에서 Strategy 인터페이스에 의존하도록 코드를 작성
-5. 다형성을 이용하여 ConcreateStrategy 인스턴스를 참조 
-6. 다형성을 이용하여 참조된 ConcreateStrategy 인스턴스의 메서드 사용 
+5. 다형성을 이용하여 참조된 ConcreateStrategy 인스턴스의 메서드 사용 
     
 ## 예제   
 ### 1. 변경(확장)될 것과 변하지 않을 것을 엄격히 구분
+**LottoNumbersAutoGenerator - Context**
 ```java
 public class LottoNumbersAutoGenerator {
   
@@ -62,6 +62,7 @@ public class LottoNumbersAutoGenerator {
 }
 ```
 ### 2. 변경(확장)될 것을 인터페이스로 추출하여 Strategy 정의
+**LottoNumbersAutoGenerator - Context**
 ```java
 public class LottoNumbersAutoGenerator {
   
@@ -79,6 +80,8 @@ public class LottoNumbersAutoGenerator {
   }
 }
 ```
+**ShuffleStrategy - Strategy**
+
 ```java
 @FunctionalInterface
 public interface ShuffleStrategy{
@@ -87,7 +90,7 @@ public interface ShuffleStrategy{
 ```
 
 ### 3. Strategy 인터페이스를 구현한 ConcreateStrategy 클래스 정의
-**ShuffleRandomStrategy**
+**ShuffleRandomStrategy - ConcreateStrategy**
 ```java
 pulblic class ShuffleRandomStrategy implements ShuffleStrategy {
     private static ShuffleRandomStrategy shuffleRandomStrategy = new ShuffleRandomStrategy();
@@ -104,7 +107,7 @@ pulblic class ShuffleRandomStrategy implements ShuffleStrategy {
     }
 }
 ```
-**ShuffleReverseStrategy**
+**ShuffleReverseStrategy - ConcreateStrategy**
 ```java
 pulblic class ShuffleReverseStrategy implements ShuffleStrategy {
     private static ShuffleReverseStrategy shuffleReverseStrategy = new ShuffleReverseStrategy();
@@ -121,7 +124,7 @@ pulblic class ShuffleReverseStrategy implements ShuffleStrategy {
     }
 }
 ```
-**ShuffleNothingStrategy**
+**ShuffleNothingStrategy - ConcreateStrategy**
 ```java
 pulblic class ShuffleNothingStrategy implements ShuffleStrategy {
     private static ShuffleNothingStrategy shuffleNothingStrategy = new ShuffleNothingStrategy();
@@ -139,7 +142,70 @@ pulblic class ShuffleNothingStrategy implements ShuffleStrategy {
 }
 ```
 
+### 4. Context에서 Strategy 인터페이스에 의존하도록 코드를 작성
+**Main**
+```java
+class Main{
+    public static void main(String[] args){
+        LottoNumbersAutoGenerator lottoNumbersAutoGenerator = new LottoNumbersAutoGenerator(ShuffleRandomStrategy.getInstance());
+        // LottoNumbersAutoGenerator lottoNumbersAutoGenerator = new LottoNumbersAutoGenerator(ShuffleReverseStrategy.getInstance());
+        // LottoNumbersAutoGenerator lottoNumbersAutoGenerator = new LottoNumbersAutoGenerator(ShuffleNothingStrategy.getInstance());
+    }
+}
+```
 
+**LottoNumbersAutoGenerator - Context**
+```java
+public class LottoNumbersAutoGenerator {
+  private final ShuffleStrategy shuffleStrategy; // 인터페이스 의존 -> 관련 구현 클래스들을 받을 수 있고 변경하지 않아도 됨   
+    
+  public LottoNumbersAutoGenerator(){
+    this(ShuffleRandomStrategy.getInstance());
+  }   
+  
+  pulic LottoNumbersAutoGenerator(ShuffleStrategy shuffleStrategy){
+    this.shuffleStrategy = shuffleStrategy;
+  } 
+    
+  public List<Intenger> generate(int shuffle) {
+    List<Integer> numbers = new ArrayList<>();
+    for(int i=LottoNumber.MIN; i <= LottoNumber.MAX; i++){
+      numbers.add(i);
+    }
+    
+  return numbers.subList(0. Lotto.LOTTO_NUMBER_SIZE);
+  
+  }
+}
+```
+
+### 5. 다형성을 이용하여 참조된 ConcreateStrategy 인스턴스의 메서드 사용 
+**LottoNumbersAutoGenerator - Context**
+```java
+public class LottoNumbersAutoGenerator {
+  private final ShuffleStrategy shuffleStrategy; // 인터페이스 의존 -> 관련 구현 클래스들을 받을 수 있고 변경하지 않아도 됨   
+    
+  public LottoNumbersAutoGenerator(){
+    this(ShuffleRandomStrategy.getInstance());
+  }   
+  
+  pulic LottoNumbersAutoGenerator(ShuffleStrategy shuffleStrategy){
+    this.shuffleStrategy = shuffleStrategy;
+  } 
+    
+  public List<Intenger> generate(int shuffle) {
+    List<Integer> numbers = new ArrayList<>();
+    for(int i=LottoNumber.MIN; i <= LottoNumber.MAX; i++){
+      numbers.add(i);
+    }
+  
+  numbers = shuffleStrategy.shuffle(numbers); // 참조하고 있는 인스턴스에 맞는 shuffle 메서드 실행 -> 내부 로직 몰라도 됨 -> 추가로 이름 잘 지어야하는 이유 중 하나이기도  
+  
+  return numbers.subList(0. Lotto.LOTTO_NUMBER_SIZE);
+  
+  }
+}
+```
 
 
 # 참조
