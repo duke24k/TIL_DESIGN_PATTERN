@@ -22,9 +22,122 @@
   * 전략 패턴에서 명시한 알고리즘을 실제로 각 용도에 알맞게 구현한 클래스    
   
 ## 전략 패턴 설계 방법
+1. Context에서 변경(확장)될 것과 변하지 않을 것을 엄격히 구분
+2. 변경(확장)될 것을 인터페이스로 추출하여 Strategy 정의
+3. Strategy 인터페이스를 구현한 ConcreateStrategy 클래스 정의
+4. Context에서 Strategy 인터페이스에 의존하도록 코드를 작성
+5. 다형성을 이용하여 ConcreateStrategy 인스턴스를 참조 
+6. 다형성을 이용하여 참조된 ConcreateStrategy 인스턴스의 메서드 사용 
+    
+## 예제   
+### 1. 변경(확장)될 것과 변하지 않을 것을 엄격히 구분
+```java
+public class LottoNumbersAutoGenerator {
+  
+  // 변경이 되지 않는 코드 //
+  public List<Intenger> generate(int shuffle) {
+    List<Integer> numbers = new ArrayList<>();
+    for(int i=LottoNumber.MIN; i <= LottoNumber.MAX; i++){
+      numbers.add(i);
+    }
+  /////////////////////  
+  
+  // 변경이 일어나는 코드 // 
+  if(shuffle == RANDOM){
+      Collections.Shuffle(numbers);
+  } else if(shuffle == NOTHING){
+      Collections.sort(numbers);
+  } else if(shuffle == REVERSE){
+      Collections.reverse(numbers);
+  }
+  /////////////////////
+  
+  // 변경이 일어나지 않는 코드 // 
+  return numbers.subList(0. Lotto.LOTTO_NUMBER_SIZE);
+  /////////////////////
+  
+  }
+}
+```
+### 2. 변경(확장)될 것을 인터페이스로 추출하여 Strategy 정의
+```java
+public class LottoNumbersAutoGenerator {
+  
+  public List<Intenger> generate(int shuffle) {
+    List<Integer> numbers = new ArrayList<>();
+    for(int i=LottoNumber.MIN; i <= LottoNumber.MAX; i++){
+      numbers.add(i);
+    }
+
+      // 없어진 부분 // 
+      
+      
+    return numbers.subList(0. Lotto.LOTTO_NUMBER_SIZE);
+  
+  }
+}
+```
+```java
+@FunctionalInterface
+public interface ShuffleStrategy{
+    public List<Integer> shuffle(List<Integer> numbers);
+}
+```
+
+### 3. Strategy 인터페이스를 구현한 ConcreateStrategy 클래스 정의
+**ShuffleRandomStrategy**
+```java
+pulblic class ShuffleRandomStrategy implements ShuffleStrategy {
+    private static ShuffleRandomStrategy shuffleRandomStrategy = new ShuffleRandomStrategy();
+    
+    private ShuffleRandomStrategy(){}
+    
+    public static ShuffleRandomStrategy getInstance(){
+        return instance;
+    }
+    
+    public List<Integer> shuffle(final List<Integer> numbers){
+        Collections.shuffle(numbers);
+        return numbers;
+    }
+}
+```
+**ShuffleReverseStrategy**
+```java
+pulblic class ShuffleReverseStrategy implements ShuffleStrategy {
+    private static ShuffleReverseStrategy shuffleReverseStrategy = new ShuffleReverseStrategy();
+    
+    private ShuffleReverseStrategy(){}
+    
+    public static ShuffleReverseStrategy getInstance(){
+        return instance;
+    }
+    
+    public List<Integer> shuffle(final List<Integer> numbers){
+        Collections.reverse(numbers);
+        return numbers;
+    }
+}
+```
+**ShuffleNothingStrategy**
+```java
+pulblic class ShuffleNothingStrategy implements ShuffleStrategy {
+    private static ShuffleNothingStrategy shuffleNothingStrategy = new ShuffleNothingStrategy();
+    
+    private ShuffleNothingStrategy(){}
+    
+    public static ShuffleNothingStrategy getInstance(){
+        return instance;
+    }
+    
+    public List<Integer> shuffle(final List<Integer> numbers){
+        Collections.sort(numbers);
+        return numbers;
+    }
+}
+```
 
 
-## 
 
 
 # 참조
