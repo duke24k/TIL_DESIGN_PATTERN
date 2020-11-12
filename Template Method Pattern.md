@@ -108,22 +108,25 @@ class NaverMapView extends MapView {
 
 ### 4. 외부에서는 그저 메인 메서드를 호출하면 참조 인스턴스에 따라 세부 처리가 다르다.
 ```java
+public class Main {
+   new TemplateExample(new KakaoMapView()).initMap();
+   new TemplateExample(new NaverMapView()).initMap();
+}
+```
+```java
 public class TemplateExample {
-    public static void main(String[] args) {
-        new KakaoMapView().initMap();
-        new NaverMapView().initMap();
+    private final MapView mapView;
+    
+    public TemplateExample(MapView mapView){
+       this.mapView = mapView;
+    }
+    
+    public void run(){
+       mapVire.initMap();
     }
 }
 ```
 또한, 같은 클래스를 상속하기에 다형성을 이용한 OCP 설계 패턴을 지킬 수 있다.   
-```java
-public class TemplateExample {
-    public static void main(String[] args) {
-        MapView mapView = new KakaoMapView();
-        mapView = new NaverMapView();
-    }
-}
-```
 
 ### 5. 이외에 - 모든 서브 메서드를 오버라이딩 할 필요는 없으며 정의된 서브 메서드를 추가해줘도 된다.      
 **MapView**
