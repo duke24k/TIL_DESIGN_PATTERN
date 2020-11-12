@@ -44,7 +44,8 @@ public abstract class MapView{
     
     public void initMap(){
     // 맵 연결 기능
-    // 
+    // 맵 보여주기 기능
+    // 맵 좌표 이동 기능 
     }
 }
 ```
