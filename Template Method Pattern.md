@@ -117,6 +117,17 @@ public class TemplateExample {
 }
 ```
 또한, 같은 클래스를 상속하기에 다형성을 이용한 OCP 설계 패턴을 지킬 수 있다.   
+```java
+public class TemplateExample {
+    public static void main(String[] args) {
+        MapView mapView = new KakaoMapView();
+        mapView = new NaverMapView();
+    }
+}
+```
+
+### 이외에 - 모든 서브 메서드를 오버라이딩 할 필요는 없다.   
+### 이외에 - 모든 서브 메서드를 오버라이딩 할 필요는 없다.   
 
 
 # 참조 
