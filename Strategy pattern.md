@@ -1,13 +1,13 @@
 # Strategy pattern     
 <img width="832" alt="스크린샷 2020-11-11 오후 2 36 26" src="https://user-images.githubusercontent.com/50267433/98773008-5b5dce00-242b-11eb-9f09-149c6710d370.png">
 
-[1. 전략 패턴이란?](#전략-패턴이란?)     
+[1. Strategy pattern 이란?](#Strategy-pattern-이란?)     
 [2. 관련 용어](#관련-용어)     
-[3. 전략 패턴 설계 방법](#전략-패턴-설계-방법)     
+[3. 설계 방법](#설계-방법)     
 [4. 예제](#예제)     
 
    
-## Strategy pattern(전략 패턴)이란?       
+## Strategy pattern 이란?       
 > 실행 중에 알고리즘을 선택할 수 있게 하는 행위 소프트웨어 디자인 패턴이다.               
    
 * 특정한 계열의 알고리즘들을 정의하고    
