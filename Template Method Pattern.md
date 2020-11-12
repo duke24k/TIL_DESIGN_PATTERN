@@ -12,8 +12,7 @@
 
 **얄팍한 코딩사전**   
 ```
-어떤 일을 수행하는 몇가지 방법이 있는데 그 전반적 과정에 공통된 절차가 있을 때   
-코드를 효율적으로 짜기 위해 만들어진 패턴이다.   
+어떤 일을 수행하는 몇가지 방법이 있는데 그 전반적 과정에 공통된 절차가 있을 때 코드를 효율적으로 짜기 위해 만들어진 패턴이다.   
 ```
    
 알고리즘의 기능들을 **각각의 메서드**로 정의하여 이를 호출하는 방식으로 사용하고       
@@ -126,9 +125,38 @@ public class TemplateExample {
 }
 ```
 
-### 이외에 - 모든 서브 메서드를 오버라이딩 할 필요는 없다.   
-### 이외에 - 모든 서브 메서드를 오버라이딩 할 필요는 없다.   
+### 이외에 - 모든 서브 메서드를 오버라이딩 할 필요는 없으며 정의된 서브 메서드를 추가해줘도 된다.      
+**MapView**
+```java
+public abstract class MapView{
+    protected abstract void connectMapServer();
+    private void ShowMapOnScreen(){
+        System.out.println("맵을 보여줍니다.");
+    }
+    protected abstract void moveToCurrentLocation();
 
+    public void initMap(){
+        connectMapServer(); // 오버라이딩 
+        ShowMapOnScreen(); // 디폴트로 사용할 메서드 
+        moveToCurrentLocation(); // 오버라이딩
+    }
+}
+```
+**KakaoMapView**   
+```java
+public class KakaoMapView extends MapView {
+
+    @Override
+    protected void connectMapServer() {
+        System.out.println("카카오 지도 연결");
+    }
+
+    @Override
+    protected void moveToCurrentLocation() {
+        System.out.println("카카오 지도에서 현 좌표로 이동");
+    }
+}
+```
 
 # 참조 
 블로그 :    
