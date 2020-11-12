@@ -125,7 +125,7 @@ public class TemplateExample {
 }
 ```
 
-### 이외에 - 모든 서브 메서드를 오버라이딩 할 필요는 없으며 정의된 서브 메서드를 추가해줘도 된다.      
+### 5. 이외에 - 모든 서브 메서드를 오버라이딩 할 필요는 없으며 정의된 서브 메서드를 추가해줘도 된다.      
 **MapView**
 ```java
 public abstract class MapView{
