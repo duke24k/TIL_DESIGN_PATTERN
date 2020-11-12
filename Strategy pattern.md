@@ -27,7 +27,7 @@
 * **ConcreateStrategy :** Strategy 의 추상 메서드를 구현한 클래스   
   * 전략 패턴에서 명시한 알고리즘을 실제로 각 용도에 알맞게 구현한 클래스    
   
-## 전략 패턴 설계 방법
+## 설계 방법
 1. Context에서 변경(확장)될 것과 변하지 않을 것을 엄격히 구분
 2. 변경(확장)될 것을 인터페이스로 추출하여 Strategy 정의
 3. Strategy 인터페이스를 구현한 ConcreateStrategy 클래스 정의
