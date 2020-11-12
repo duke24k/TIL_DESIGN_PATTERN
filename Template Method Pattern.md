@@ -35,7 +35,8 @@
 
 
 ## 예제 
-### 1. 메인 메서드내에 존재하는 여러 기능들을 구분하여 각각의 서브 메서드를 만들어준다.       
+### 1. 메인 메서드내에 존재하는 여러 기능들을 구분하여 각각의 서브 메서드를 만들어준다.    
+**MapView**
 ```java
 public abstract class MapView{
     protected abstract void connectMapServer();
@@ -50,12 +51,72 @@ public abstract class MapView{
 }
 ```
 ### 2. 메인 메서드에서는 이들을 통칭적으로 사용하는 로직을 구현한다.
+**MapView**
 ```java
+public abstract class MapView{
+    protected abstract void connectMapServer();
+    protected abstract void ShowMapOnScreen();
+    protected abstract void moveToCurrentLocation();
 
+    public void initMap(){
+        connectMapServer();
+        ShowMapOnScreen();
+        moveToCurrentLocation();
+    }
+}
 ```
 ### 3. 해당 클래스의 하위 클래스들에서는 서브 메서드를 각각의 클래스에 맞게 오버라이딩 정의한다. (단, 메인 메서드는 건들지 말것)
-### 4. 외부에서는 그저 메인 메서드를 호출하면 참조 인스턴스에 따라 세부 처리가 다르다.
+**KakaoMapView**   
+```java
+public class KakaoMapView extends MapView {
 
+    @Override
+    protected void connectMapServer() {
+        System.out.println("카카오 지도 연결");
+    }
+
+    @Override
+    protected void ShowMapOnScreen() {
+        System.out.println("카카오 지도를 보여줌");
+    }
+
+    @Override
+    protected void moveToCurrentLocation() {
+        System.out.println("카카오 지도에서 현 좌표로 이동");
+    }
+}
+```
+**NaverMapView**
+```java
+class NaverMapView extends MapView {
+
+    @Override
+    protected void connectMapServer() {
+        System.out.println("네이버 지도 연결");
+    }
+
+    @Override
+    protected void ShowMapOnScreen() {
+        System.out.println("네이버 지도를 보여줌");
+    }
+
+    @Override
+    protected void moveToCurrentLocation() {
+        System.out.println("네이버 지도에서 현 좌표로 이동");
+    }
+}
+```
+
+### 4. 외부에서는 그저 메인 메서드를 호출하면 참조 인스턴스에 따라 세부 처리가 다르다.
+```java
+public class TemplateExample {
+    public static void main(String[] args) {
+        new KakaoMapView().initMap();
+        new NaverMapView().initMap();
+    }
+}
+```
+또한, 같은 클래스를 상속하기에 다형성을 이용한 OCP 설계 패턴을 지킬 수 있다.   
 
 
 # 참조 
