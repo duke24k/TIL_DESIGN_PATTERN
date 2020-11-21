@@ -102,6 +102,7 @@ public class Settings {
     public int getFontSize(){return fontSize;}
     public void setDarkMode(boolean _darkMode){darkMode = _darkMode;}
     public void setFontSize(int _fontSize){fontSize = _fontSize;}
+
 }
 ```
 
@@ -121,6 +122,7 @@ public class Settings {
     public int getFontSize(){return fontSize;}
     public void setDarkMode(boolean _darkMode){darkMode = _darkMode;}
     public void setFontSize(int _fontSize){fontSize = _fontSize;}
+
 }
 ```
 
@@ -131,6 +133,7 @@ public class Settings {
 **Settings**
 ```java
 public class Settings {
+
     private static Settings settings = new Settings();
     private Settings(){}
 
@@ -141,6 +144,7 @@ public class Settings {
     public int getFontSize(){return fontSize;}
     public void setDarkMode(boolean _darkMode){darkMode = _darkMode;}
     public void setFontSize(int _fontSize){fontSize = _fontSize;}
+
 }
 
 ```
@@ -150,6 +154,8 @@ public class Settings {
      
 **Settings**
 ```java
+public class Settings {
+
     private static Settings settings = new Settings();
 
     private Settings() { }
@@ -163,6 +169,8 @@ public class Settings {
     public int getFontSize(){return fontSize;}
     public void setDarkMode(boolean _darkMode){darkMode = _darkMode;}
     public void setFontSize(int _fontSize){fontSize = _fontSize;}
+
+}
 ```
 
 ### 5. 해당 인스턴스를 참조하는 관련 코드의 내용을 변경해주고 결과 확인   
