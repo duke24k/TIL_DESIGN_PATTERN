@@ -219,13 +219,9 @@ true 15
 
 
 # 참조
-> 베이스 : https://github.com/kwj1270/TIL_WooWaHanTechSeminar/blob/master/OCP%EC%99%80%20%EC%A0%84%EB%9E%B5%20%ED%8C%A8%ED%84%B4.md    
-     
-* **위키 :**    
-https://ko.wikipedia.org/wiki/%EC%A0%84%EB%9E%B5_%ED%8C%A8%ED%84%B4
+> 베이스 :   
+   
 * **블로그 :**    
-https://velog.io/@kyle/%EB%94%94%EC%9E%90%EC%9D%B8-%ED%8C%A8%ED%84%B4-%EC%A0%84%EB%9E%B5%ED%8C%A8%ED%84%B4%EC%9D%B4%EB%9E%80
 * **동영상**    
-우아한 테크코스_OCP와 전략패턴 : https://www.youtube.com/watch?v=90ZDvHl8ROE      
 얄팍한 코딩지식_디자인패턴1 : https://www.youtube.com/watch?v=lJES5TQTTWE   
   
