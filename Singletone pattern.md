@@ -67,7 +67,7 @@ public class SecondPage {
 }
 ```
 
-**Settings **
+**Settings**
 ```java
 public class Settings {
 
@@ -91,7 +91,7 @@ public class Settings {
 ### 1. 인스턴스가 오직 1개만 생성되어야 하는 클래스를 식별     
 > 여러 클래스에서 공통된 상태를 가지거나 기능을 제공하는 클래스를 식별         
     
-**Settings **
+**Settings**
 ```java
 public class Settings {
   
@@ -108,7 +108,7 @@ public class Settings {
 ### 2. private 접근 제어자를 이용해서 생성자 호출 제한하기     
 > new 생성자를 이용하면 불변 객체라도 메모리를 새롭게 할당한다는 단점이 있다.    
      
-**Settings **
+**Settings**
 ```java
 public class Settings {
   
@@ -128,7 +128,7 @@ public class Settings {
 ### 3. 클래스 내부에서 static 형태의 객체 생성과 참조 변수 설정
 > 공용으로 사용되어야 하므로 static 참조 변수와 인스턴스를 만든다.   
    
-**Settings **
+**Settings**
 ```java
 public class Settings {
     private static Settings settings = new Settings();
@@ -148,7 +148,7 @@ public class Settings {
 ### 4. static 인스턴스를 외부에서 참조할 수 있도록 getInstance static 메서드 생성  
 > 외부에서 `클래스.메서드()` 형태로 사용해야 하므로 static 메서드로 정의한다.   
      
-**Settings **
+**Settings**
 ```java
     private static Settings settings = new Settings();
 
