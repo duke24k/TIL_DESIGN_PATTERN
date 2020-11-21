@@ -209,6 +209,15 @@ true 15
 * 같은 값이 나온것을 보면 동일한 인스턴스를 참조하고 있음을 알 수 있다.   
   
 
+# 개인적인 생각
+이펙티브 자바 1장에서 생성자 대신 static 팩토리 메서드 사용에 대해서 이야기를 한다.   
+링크 : https://www.youtube.com/watch?v=X7RXP6EI-5E   
+깃헙 : https://github.com/keesun/study/blob/master/effective-java/item1.md   
+
+어찌보면 싱글톤 패턴은 `static 팩토리 메서드` + `static instance` 같은 느낌이 든다.
+즉, `static 팩토리 메서드`의 일부분? 파생되어서 나온 개념? 이라는 생각이다.   
+
+
 # 참조
 > 베이스 : https://github.com/kwj1270/TIL_WooWaHanTechSeminar/blob/master/OCP%EC%99%80%20%EC%A0%84%EB%9E%B5%20%ED%8C%A8%ED%84%B4.md    
      
