@@ -270,8 +270,48 @@ public class Settings {
 
 }
 ```
-*
-*
+* **장점 :**   
+  * 싱글톤 객체가 필요할 때 인스턴스를 얻을 수 있습니다.  (Eager initialization 방식에 단점을 보완)
+* **단점 :**   
+  * multi-thread 환경에서 여러 곳에서 동시에 getInstance()를 호출할 경우 인스턴스가 두 번 생성될 여지가 있습니다. (동기화 문제) 
+  * 메서드가 각각의 순서에 맞게 인스턴스를 생성한다면 문제가 없지만 RaceCondition 발생하면 동시에 생성이 될 가능성이 있다.   
+    * A_Thread : `if(settings == null)` 부합 
+    * B_Thread : `if(settings == null)` 부합 
+    * A_Thread : `settings = new Settings();` 처리
+    * B_Thread : `settings = new Settings();` 처리
+    * 인스턴스 2개 생김  
+
+## 3. Lazy Initialization - Thread-safe 버전 (늦은 초기화 방식)
+> Lazy Initialization 을 Thread-safe 하게 만드는 방법 : synchronized 키워드를 메서드에 붙여넣어준다.     
+
+**Settings**
+```java
+public class Settings {
+
+    private static Settings settings;
+    
+    private Settings() { }
+    
+    public static synchronized Settings getInstance() { 
+      if(settings == null) {settings = new Settings();}
+      return settings; 
+    }
+
+    private boolean darkMode = false; // default false
+    private int fontSize = 13; // default 13
+
+    public  boolean getDarkMode(){return darkMode;}
+    public int getFontSize(){return fontSize;}
+    public void setDarkMode(boolean _darkMode){darkMode = _darkMode;}
+    public void setFontSize(int _fontSize){fontSize = _fontSize;}
+
+}
+```
+* **장점 :**   
+  * Thread-safe한 싱글톤 객체를 보장해줄 수 있다.   
+   
+* **단점 :**     
+  * 기존 Lazy Initialization 방법에 의해 속도가 100배 이상 저하된다.      
 
 
 # 개인적인 생각
