@@ -222,6 +222,7 @@ true 15
 > 베이스 :   
    
 * **블로그 :**    
+https://yaboong.github.io/design-pattern/2018/09/28/thread-safe-singleton-patterns/ - 가장 좋은 블로그
 * **동영상**    
 얄팍한 코딩지식_디자인패턴1 : https://www.youtube.com/watch?v=lJES5TQTTWE   
   
