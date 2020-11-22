@@ -9,10 +9,10 @@
 ## Singletone pattern 이란?       
 > 인스턴스가 오직 1개만 생성되어야 하는 경우에 사용하는 패턴               
      
-* 하나의 인스턴스 메모리를 등록해서 여러 스레드가 동시에 해당 인스턴스를 공유하도록 한다.        
-  * 생성자가 여러 차례 호출되더라도 실제로 생성되는 객체는 하나이고 최초 생성된 객체를 반환한다.           
-* 단순히 기능만 제공하는 `유틸 클래스`는 인스턴스가 1개만 있어도 되므로 이같은 패턴을 사용한다.       
-* 또한, 애플리케이션 전역에 걸쳐 공통된 상태를 유지하는 객체에서도 사용한다. (다크 모드)         
+* 하나의 인스턴스 메모리를 등록해서 여러 스레드가 동시에 해당 인스턴스를 공유하도록 한다.            
+  * 생성자가 여러 차례 호출되더라도 실제로 생성되는 객체는 하나이고 최초 생성된 객체를 반환한다.                
+* 단순히 기능만 제공하는 `유틸 클래스`는 인스턴스가 1개만 있어도 되므로 이 같은 패턴을 사용하기도 한다.          
+* 애플리케이션 전역에 걸쳐 공통된 상태를 유지하는 객체에서도 사용한다. (다크 모드 같은 상태를 가진 Settings 클래스)                
 * 주의할 점: 
   * 동시성(Concurrency) 문제를 고려해서 설계해야한다.    
     * 멀티쓰레드 환경에서 동기화 처리를 하지 않으면 인스턴스가 2개가 생성될 우려가 있다.  
@@ -20,7 +20,8 @@
        
 **정리 : 인스턴스를 인스턴스가 오직 1개만 생성되어야 하는 경우에 사용되며 동시성을 고려해서 설계해야한다.**        
             
-## 관련 용어     
+## 관련 용어      
+  
   
 ## 설계 방법
 1. 인스턴스가 오직 1개만 생성되어야 하는 클래스를 식별  
@@ -208,6 +209,70 @@ true 15
 ```
 * 같은 값이 나온것을 보면 동일한 인스턴스를 참조하고 있음을 알 수 있다.   
   
+# 싱글톤 패턴을 만드는 구현 방법 
+## 1. Eager Initialization (이른 초기화)      
+> 싱글톤 객체를 instance라는 변수로 미리 생성해 놓고 사용하는 방식           
+     
+**Settings**
+```java
+public class Settings {
+
+    private static Settings settings = new Settings();
+
+    private Settings() { }
+
+    public static Settings getInstance() { return settings; }
+
+    private boolean darkMode = false; // default false
+    private int fontSize = 13; // default 13
+
+    public  boolean getDarkMode(){return darkMode;}
+    public int getFontSize(){return fontSize;}
+    public void setDarkMode(boolean _darkMode){darkMode = _darkMode;}
+    public void setFontSize(int _fontSize){fontSize = _fontSize;}
+
+}
+```
+* **장점 :**    
+  * static 변수로 싱글톤 객체를 참조하기 때문에 클래스 로더에 의해 클래스가 로딩될 때 싱글톤 객체가 생성됩니다.    
+  * 클래스 로더에 의해 클래스가 최초 로딩 될 때 객체가 생성됨으로 `Thread-safe` 합니다.
+    * **Thread-safe 한 이유 :**    
+    * 최초 로딩은 1번만 실행   
+    * 여러 쓰레드가 존재하지 않을때 생기므로 여러 쓰레드가 생긴 후에는 해당 객체를 공유하여 사용     
+        
+* **단점 :**    
+  * 클라이언트에서 싱글톤 객체를 사용하지 않아도 싱글톤 객체가 생성(new) 되어 메모리를 차지하고 있습니다.   
+    * 클래스 로더에 의해 로딩된 클래스들은 다시 JVM상에서 없앨 수 없습니다. 
+
+## 2. Lazy Initialization (늦은 초기화 방식)
+> 싱글톤 클래스 타입의 instance 참조 변수만 미리 생성해 놓고 나중에 객체를 참조하는 형식  
+        
+**Settings**
+```java
+public class Settings {
+
+    private static Settings settings;
+    
+    private Settings() { }
+    
+    public static Settings getInstance() { 
+      if(settings == null) {settings = new Settings();}
+      return settings; 
+    }
+
+    private boolean darkMode = false; // default false
+    private int fontSize = 13; // default 13
+
+    public  boolean getDarkMode(){return darkMode;}
+    public int getFontSize(){return fontSize;}
+    public void setDarkMode(boolean _darkMode){darkMode = _darkMode;}
+    public void setFontSize(int _fontSize){fontSize = _fontSize;}
+
+}
+```
+*
+*
+
 
 # 개인적인 생각
 이펙티브 자바 1장에서 생성자 대신 static 팩토리 메서드 사용에 대해서 이야기를 한다.   
@@ -223,6 +288,7 @@ true 15
    
 * **블로그 :**    
 https://yaboong.github.io/design-pattern/2018/09/28/thread-safe-singleton-patterns/ - 가장 좋은 블로그
+https://beomseok95.tistory.com/239 - 깔끔한 정리 
 * **동영상**    
 얄팍한 코딩지식_디자인패턴1 : https://www.youtube.com/watch?v=lJES5TQTTWE   
   
