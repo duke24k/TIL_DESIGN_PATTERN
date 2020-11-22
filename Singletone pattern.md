@@ -287,8 +287,10 @@ public class Settings {
 > 베이스 :   
    
 * **블로그 :**    
-https://yaboong.github.io/design-pattern/2018/09/28/thread-safe-singleton-patterns/ - 가장 좋은 블로그
 https://beomseok95.tistory.com/239 - 깔끔한 정리 
+https://medium.com/webeveloper/%EC%8B%B1%EA%B8%80%ED%84%B4-%ED%8C%A8%ED%84%B4-singleton-pattern-db75ed29c36 - 보충 설명
+https://yaboong.github.io/design-pattern/2018/09/28/thread-safe-singleton-patterns/ - 보충 설명 
+
 * **동영상**    
 얄팍한 코딩지식_디자인패턴1 : https://www.youtube.com/watch?v=lJES5TQTTWE   
   
