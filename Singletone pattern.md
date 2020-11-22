@@ -311,8 +311,9 @@ public class Settings {
   * Thread-safe한 싱글톤 객체를 보장해줄 수 있다.   
    
 * **단점 :**     
-  * 기존 Lazy Initialization 방법에 의해 속도가 100배 이상 저하된다.      
+  * 여러 thread 가 getInstance를 호출하게 되면 높은 cost 비용으로 인해 프로그램 전반에 성능 저하가 발생         
 
+## 4. Initialization on demand holder idiom (holder에 의한 초기화 방식)
 
 # 개인적인 생각
 이펙티브 자바 1장에서 생성자 대신 static 팩토리 메서드 사용에 대해서 이야기를 한다.   
