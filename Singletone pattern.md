@@ -342,9 +342,8 @@ public class Settings {
 ```
 **장점 :**    
 * Settings 클래스에는 SettingsHolder 클래스의 변수가 없기 때문에 Settings 클래스 로딩 시 SettingsHolder 클래스를 초기화하지 않음    
-* SettingsHolder 안에 선언된 인스턴스가 static이기 때문에 클래스 로딩 시점에 한번만 호출     
-  * 클래스를 로딩하고 초기화하는 시점은 thread-safe를 보장         
-  * final을 써서 다시 값이 할당되지 않도록 함            
+* getInstance를 통해 내부 클래스의 instance를 호출할 때 뒤늦게 초기화되어 객체를 할당         
+* 그리고 final을 써서 다시 값이 할당되지 않도록 함            
         
 **단점 :**      
 * 리플렉션을 이용한 내부 생성자 호출 가능        
@@ -353,9 +352,9 @@ public class Settings {
 정적 클래스로 정의된 내부 클래스의 초기화는 클래스 로드 시점에 이뤄지지 않는 특성이 있습니다.         
 즉, getInstance를 통해 내부 클래스의 instance를 호출할 때 뒤늦게 초기화되어 객체를 할당합니다.         
    
-그렇다면 의문점은 `Lazy initialization 처러 RaceCondition으로 인해 동시에 인스턴스를 생성할 수 있지 않을까?`   
-하지만 이 방식이 thread safe 한 이유는 **jvm의 클래스 초기화 과정에서 보장되는 원자적 특성(시리얼 하게 동작)을 이용하기 때문입니다.**    
-즉 동기화 문제를 jvm이 처리하도록 합니다.      
+그렇다면 의문점은 `Lazy initialization 처럼 RaceCondition으로 인해 동시에 인스턴스를 생성할 수 있지 않을까?`   
+하지만 이 방식이 thread-safe 한 이유는 **jvm의 클래스 초기화 과정에서 보장되는 원자적 특성(시리얼 하게 동작)을 이용하기 때문입니다.**    
+즉 동기화 문제를 jvm이 처리하도록 합니다. (클래스 로딩시점을 의미하는 것 같다.)      
 
 ```
 여기서는 JVM의 원자적 특성에 관한 내용 추가해야할 듯 
