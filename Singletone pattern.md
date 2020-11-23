@@ -1,5 +1,6 @@
 # Singletone pattern
-
+![singleton-diagram](https://user-images.githubusercontent.com/50267433/99934140-8091fb00-2da0-11eb-8013-b07f56ef6670.png)      
+     
 [1. Singletone pattern 이란?](#Singletone-pattern-이란)     
 [2. 설계 방법](#설계-방법)     
 [3. 예제](#예제)     
