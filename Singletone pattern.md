@@ -341,9 +341,9 @@ public class Settings {
 }
 ```
 **장점 :**    
-* Singleton 클래스에는 LazyHolder 클래스의 변수가 없기 때문에 Singleton 클래스 로딩 시 LazyHolder 클래스를 초기화하지 않음    
-* Class를 로딩하고 초기화하는 시점은 thread-safe를 보장       
-* holder 안에 선언된 instance가 static이기 때문에 클래스 로딩 시점에 한번만 호출       
+* Settings 클래스에는 SettingsHolder 클래스의 변수가 없기 때문에 Settings 클래스 로딩 시 SettingsHolder 클래스를 초기화하지 않음    
+* SettingsHolder 안에 선언된 인스턴스가 static이기 때문에 클래스 로딩 시점에 한번만 호출     
+  * 클래스를 로딩하고 초기화하는 시점은 thread-safe를 보장         
   * final을 써서 다시 값이 할당되지 않도록 함            
         
 **단점 :**      
