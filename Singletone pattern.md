@@ -400,7 +400,8 @@ Field[] f = c.getFields();
 Constructor[] cs = c.getConstructors();
 Class[] inter = c.getInterfaces();
 Class superClass = c.getSuperclass();
-
+```
+```
 > 하나의 클래스에서 다른 클래스의 정보를 알아낼 수 있는 개념    
 출처 : https://opentutorials.org/module/987/8927
 
