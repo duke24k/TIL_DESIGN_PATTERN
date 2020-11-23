@@ -340,6 +340,16 @@ public class Settings {
     
 }
 ```
+**장점 :**    
+* Singleton 클래스에는 LazyHolder 클래스의 변수가 없기 때문에 Singleton 클래스 로딩 시 LazyHolder 클래스를 초기화하지 않음    
+* Class를 로딩하고 초기화하는 시점은 thread-safe를 보장       
+* holder 안에 선언된 instance가 static이기 때문에 클래스 로딩 시점에 한번만 호출       
+  * final을 써서 다시 값이 할당되지 않도록 함            
+        
+**단점 :**      
+* 리플렉션을 이용한 내부 생성자 호출 가능        
+* 역직렬화가 수행될 때마다 새로운 객체 생성      
+
 정적 클래스로 정의된 내부 클래스의 초기화는 클래스 로드 시점에 이뤄지지 않는 특성이 있습니다.         
 즉, getInstance를 통해 내부 클래스의 instance를 호출할 때 뒤늦게 초기화되어 객체를 할당합니다.         
    
@@ -425,11 +435,12 @@ Class superClass = c.getSuperclass();
 > 베이스 :   
    
 * **블로그 :**    
-https://beomseok95.tistory.com/239 - 깔끔한 정리          
-https://yaboong.github.io/design-pattern/2018/09/28/thread-safe-singleton-patterns/ - 보충 설명           
-https://medium.com/webeveloper/%EC%8B%B1%EA%B8%80%ED%84%B4-%ED%8C%A8%ED%84%B4-singleton-pattern-db75ed29c36 - 보충 설명       
-https://brunch.co.kr/@kd4/8 - 리플렉션 
-   
+https://beomseok95.tistory.com/239 - 깔끔한 정리             
+https://jobjava00.github.io/language/java/basic/singleton/ - 깔끔한 정리    
+https://yaboong.github.io/design-pattern/2018/09/28/thread-safe-singleton-patterns/ - 보충 설명             
+https://medium.com/webeveloper/%EC%8B%B1%EA%B8%80%ED%84%B4-%ED%8C%A8%ED%84%B4-singleton-pattern-db75ed29c36 - 보충 설명         
+https://brunch.co.kr/@kd4/8 - 리플렉션   
+     
 * **동영상**    
 얄팍한 코딩지식_디자인패턴1 : https://www.youtube.com/watch?v=lJES5TQTTWE     
   
