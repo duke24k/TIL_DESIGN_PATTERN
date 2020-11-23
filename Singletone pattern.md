@@ -391,17 +391,33 @@ public enum EnumSettings {
 * 리플렉션을 통해 싱글턴을 깨트릴 수도 없다.
 
 **리플렉션이란?**   
-```
+```java
+Class someThing = 클래스.class;
+// Class someThing = Class.forName("클래스 이름");
 
+Method m[] = someThing.getDeclaredMethods();
+Field[] f = c.getFields();
+Constructor[] cs = c.getConstructors();
+Class[] inter = c.getInterfaces();
+Class superClass = c.getSuperclass();
+
+> 하나의 클래스에서 다른 클래스의 정보를 알아낼 수 있는 개념    
+출처 : https://opentutorials.org/module/987/8927
+
+> 구체적인 클래스 타입을 알지 못해도, 그 클래스의 메서드/타입/변수들을 접근할 수 있도록 해준다.   
+출처 : https://brunch.co.kr/@kd4/8
+
+> 객체를 통해 클래스의 정보를 분석해 내는 프로그램 기법을 말한다.
+출처: https://gyrfalcon.tistory.com/entry/Java-Reflection [Minsub's Blog]
 ```
 
 # 개인적인 생각
-이펙티브 자바 1장에서 생성자 대신 static 팩토리 메서드 사용에 대해서 이야기를 한다.   
-링크 : https://www.youtube.com/watch?v=X7RXP6EI-5E   
-깃헙 : https://github.com/keesun/study/blob/master/effective-java/item1.md   
-
-어찌보면 싱글톤 패턴은 `static 팩토리 메서드` + `static instance` 같은 느낌이 든다.
-즉, `static 팩토리 메서드`의 일부분? 파생되어서 나온 개념? 이라는 생각이다.   
+이펙티브 자바 1장에서 생성자 대신 static 팩토리 메서드 사용에 대해서 이야기를 한다.     
+링크 : https://www.youtube.com/watch?v=X7RXP6EI-5E         
+깃헙 : https://github.com/keesun/study/blob/master/effective-java/item1.md      
+  
+어찌보면 싱글톤 패턴은 `static 팩토리 메서드` + `static instance` 같은 느낌이 든다.   
+즉, `static 팩토리 메서드`의 일부분? 파생되어서 나온 개념? 이라는 생각이다.     
 
 
 # 참조
