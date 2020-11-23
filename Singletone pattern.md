@@ -343,6 +343,14 @@ public class Settings {
 
 }
 ```
+* volatile 키워드를 사용하면 멀티스레딩을 쓰더라도 싱글톤 인스턴스로 초기화 되도록 할 수 있습니다.   
+* volatile 사용 x : 
+  * Main Memory 에 읽은 변수값을 CPU CACHE에 저장 
+  * 멀티 스레드 환경에서 스레드가 변수 값을 읽어올 때 각각의 CPU Cache 에 저장된 값이 다르기 때문에 변수 값 불일치 문제가 발생
+* volatile 사용 o : 
+  * Main Memory 에 값을 저장하고 읽어오기 때문에(read and write) 변수 값 불일치 문제가 생기지 않는다.
+  * volatile 변수에 대한 접근은(read/write) synchronized 를 사용하는 것과 동일하게 동작  
+  * primitive 타입과 object 타입 (null) 모두 허용   
 
 
 ## 5. Initialization on demand holder idiom (holder에 의한 초기화 방식)
@@ -465,11 +473,12 @@ Class superClass = c.getSuperclass();
 > 베이스 :   
    
 * **블로그 :**    
-https://beomseok95.tistory.com/239 - 깔끔한 정리             
-https://jobjava00.github.io/language/java/basic/singleton/ - 깔끔한 정리    
-https://yaboong.github.io/design-pattern/2018/09/28/thread-safe-singleton-patterns/ - 보충 설명             
-https://medium.com/webeveloper/%EC%8B%B1%EA%B8%80%ED%84%B4-%ED%8C%A8%ED%84%B4-singleton-pattern-db75ed29c36 - 보충 설명         
-https://brunch.co.kr/@kd4/8 - 리플렉션   
+https://beomseok95.tistory.com/239 - 깔끔한 정리                
+https://jobjava00.github.io/language/java/basic/singleton/ - 깔끔한 정리       
+https://brunch.co.kr/@kd4/8 - 리플렉션     
+https://alphahackerhan.tistory.com/36 - volatile       
+https://yaboong.github.io/design-pattern/2018/09/28/thread-safe-singleton-patterns/ - 보충 설명               
+https://medium.com/webeveloper/%EC%8B%B1%EA%B8%80%ED%84%B4-%ED%8C%A8%ED%84%B4-singleton-pattern-db75ed29c36 - 보충 설명           
      
 * **동영상**    
 얄팍한 코딩지식_디자인패턴1 : https://www.youtube.com/watch?v=lJES5TQTTWE     
