@@ -5,7 +5,7 @@
 [3. 예제](#예제)     
 [4. 싱글톤 패턴을 만드는 구현 방법](#싱글톤-패턴을-만드는-구현-방법)     
    
-## Singletone pattern 이란?       
+# Singletone pattern 이란?       
 > 인스턴스가 오직 1개만 생성되어야 하는 경우에 사용하는 패턴               
      
 * 하나의 인스턴스 메모리를 등록해서 여러 스레드가 동시에 해당 인스턴스를 공유하도록 한다.            
@@ -18,17 +18,16 @@
   * 전역 변수를 사용하지 말라는 말이 있듯이 꼭 필요한 경우가 아니라면 지양해야한다.   
        
 **정리 : 인스턴스를 인스턴스가 오직 1개만 생성되어야 하는 경우에 사용되며 동시성을 고려해서 설계해야한다.**        
-            
-  
-## 설계 방법
+             
+# 설계 방법
 1. 인스턴스가 오직 1개만 생성되어야 하는 클래스를 식별  
 2. private 접근 제어자를 이용해서 생성자 호출 제한하기    
 3. 클래스 내부에서 static 형태의 객체 생성과 참조 변수 설정
 4. static 인스턴스를 외부에서 참조할 수 있도록 getInstance static 메서드 생성  
 5. 해당 인스턴스를 참조하는 관련 코드의 내용을 변경해주고 결과 확인
 
-## 예제   
-### 예제 기본 코드    
+# 예제   
+## 예제 기본 코드    
 **MyProgram**
 ```java
 public class MyProgram {
@@ -86,7 +85,7 @@ public class Settings {
   * 만약 페이지가 100개 이상이라면 각 페이지마다 로직 처리 해주고 수정해야하면 또 100개 이상을 수정해야함     
 * 해결 방법은 **싱글톤 패턴을 사용하자**    
      
-### 1. 인스턴스가 오직 1개만 생성되어야 하는 클래스를 식별     
+## 1. 인스턴스가 오직 1개만 생성되어야 하는 클래스를 식별     
 > 여러 클래스에서 공통된 상태를 가지거나 기능을 제공하는 클래스를 식별         
     
 **Settings**
@@ -104,7 +103,7 @@ public class Settings {
 }
 ```
 
-### 2. private 접근 제어자를 이용해서 생성자 호출 제한하기     
+## 2. private 접근 제어자를 이용해서 생성자 호출 제한하기     
 > new 생성자를 이용하면 불변 객체라도 메모리를 새롭게 할당한다는 단점이 있다.    
      
 **Settings**
@@ -125,7 +124,7 @@ public class Settings {
 ```
 
 
-### 3. 클래스 내부에서 static 형태의 객체 생성과 참조 변수 설정
+## 3. 클래스 내부에서 static 형태의 객체 생성과 참조 변수 설정
 > 공용으로 사용되어야 하므로 static 참조 변수와 인스턴스를 만든다.   
    
 **Settings**
@@ -147,7 +146,7 @@ public class Settings {
 
 ```
 
-### 4. static 인스턴스를 외부에서 참조할 수 있도록 getInstance static 메서드 생성  
+## 4. static 인스턴스를 외부에서 참조할 수 있도록 getInstance static 메서드 생성  
 > 외부에서 `클래스.메서드()` 형태로 사용해야 하므로 static 메서드로 정의한다.   
      
 **Settings**
@@ -171,7 +170,7 @@ public class Settings {
 }
 ```
 
-### 5. 해당 인스턴스를 참조하는 관련 코드의 내용을 변경해주고 결과 확인   
+## 5. 해당 인스턴스를 참조하는 관련 코드의 내용을 변경해주고 결과 확인   
 > `new 생성자()` 패턴의 코드를 `getInstance()` 형태로 바꾸어주자      
 
 **FirstPage**
@@ -206,8 +205,8 @@ true 15
 ```
 * 같은 값이 나온것을 보면 동일한 인스턴스를 참조하고 있음을 알 수 있다.   
   
-## 싱글톤 패턴을 만드는 구현 방법 
-### Eager Initialization (이른 초기화)      
+# 싱글톤 패턴을 만드는 구현 방법 
+## 1. Eager Initialization (이른 초기화)      
 > 싱글톤 객체를 instance라는 변수로 미리 생성해 놓고 사용하는 방식           
      
 **Settings**
@@ -241,7 +240,7 @@ public class Settings {
 * 클라이언트에서 싱글톤 객체를 사용하지 않아도 싱글톤 객체가 생성(new) 되어 메모리를 차지하고 있습니다.         
 * 클래스 로더에 의해 로딩된 클래스들은 다시 JVM상에서 없앨 수 없습니다.     
 
-### Lazy Initialization (늦은 초기화 방식)
+## 2. Lazy Initialization (늦은 초기화 방식)
 > 싱글톤 클래스 타입의 instance 참조 변수만 미리 생성해 놓고 나중에 객체를 참조하는 형식  
         
 **Settings**
@@ -279,7 +278,7 @@ public class Settings {
   * B_Thread : `settings = new Settings();` 처리
   * 인스턴스 2개 생김  
 
-### Lazy Initialization - Thread-safe 버전 (늦은 초기화 방식)
+## 3. Lazy Initialization - Thread-safe 버전 (늦은 초기화 방식)
 > Lazy Initialization 을 Thread-safe 하게 만드는 방법 : synchronized 키워드를 메서드에 붙여넣어준다.     
 
 **Settings**
@@ -311,7 +310,7 @@ public class Settings {
 **단점 :**       
 * 여러 thread 가 getInstance를 호출하게 되면 높은 cost 비용으로 인해 프로그램 전반에 성능 저하가 발생           
    
-### Initialization on demand holder idiom (holder에 의한 초기화 방식)
+## 4. Initialization on demand holder idiom (holder에 의한 초기화 방식)
 > Lazy initialization 장점을 가져가면서 Thread 간 동기화 문제를 동시에 해결한 방법입니다.    
      
 **Settings**
@@ -357,7 +356,7 @@ public class Settings {
 여기서는 JVM의 원자적 특성에 관한 내용 추가해야할 듯 
 ```
 
-### Enum Initialization (Enum 초기화 방식)
+## 5. Enum Initialization (Enum 초기화 방식)
 > enum의 문법적 특성을 이용한 싱글톤 객체 생성  
 
 ```java
