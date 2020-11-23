@@ -233,16 +233,16 @@ public class Settings {
 
 }
 ```
-* **장점 :**    
-  * static 변수로 싱글톤 객체를 참조하기 때문에 클래스 로더에 의해 클래스가 로딩될 때 싱글톤 객체가 생성됩니다.    
-  * 클래스 로더에 의해 클래스가 최초 로딩 될 때 객체가 생성됨으로 `Thread-safe` 합니다.
-    * **Thread-safe 한 이유 :**    
-    * 최초 로딩은 1번만 실행   
-    * 여러 쓰레드가 존재하지 않을때 생기므로 여러 쓰레드가 생긴 후에는 해당 객체를 공유하여 사용     
-        
-* **단점 :**    
-  * 클라이언트에서 싱글톤 객체를 사용하지 않아도 싱글톤 객체가 생성(new) 되어 메모리를 차지하고 있습니다.   
-    * 클래스 로더에 의해 로딩된 클래스들은 다시 JVM상에서 없앨 수 없습니다. 
+**장점 :**      
+* static 변수로 싱글톤 객체를 참조하기 때문에 클래스 로더에 의해 클래스가 로딩될 때 싱글톤 객체가 생성됩니다.    
+* 클래스 로더에 의해 클래스가 최초 로딩 될 때 객체가 생성됨으로 `Thread-safe` 합니다.
+  * **Thread-safe 한 이유 :**    
+  * 최초 로딩은 1번만 실행   
+  * 여러 쓰레드가 존재하지 않을때 생기므로 여러 쓰레드가 생긴 후에는 해당 객체를 공유하여 사용     
+            
+**단점 :**          
+* 클라이언트에서 싱글톤 객체를 사용하지 않아도 싱글톤 객체가 생성(new) 되어 메모리를 차지하고 있습니다.         
+* 클래스 로더에 의해 로딩된 클래스들은 다시 JVM상에서 없앨 수 없습니다.     
 
 ## 2. Lazy Initialization (늦은 초기화 방식)
 > 싱글톤 클래스 타입의 instance 참조 변수만 미리 생성해 놓고 나중에 객체를 참조하는 형식  
@@ -270,16 +270,17 @@ public class Settings {
 
 }
 ```
-* **장점 :**   
-  * 싱글톤 객체가 필요할 때 인스턴스를 얻을 수 있습니다.  (Eager initialization 방식에 단점을 보완)
-* **단점 :**   
-  * multi-thread 환경에서 여러 곳에서 동시에 getInstance()를 호출할 경우 인스턴스가 두 번 생성될 여지가 있습니다. (동기화 문제) 
-  * 메서드가 각각의 순서에 맞게 인스턴스를 생성한다면 문제가 없지만 RaceCondition 발생하면 동시에 생성이 될 가능성이 있다.   
-    * A_Thread : `if(settings == null)` 부합 
-    * B_Thread : `if(settings == null)` 부합 
-    * A_Thread : `settings = new Settings();` 처리
-    * B_Thread : `settings = new Settings();` 처리
-    * 인스턴스 2개 생김  
+**장점 :**       
+* 싱글톤 객체가 필요할 때 인스턴스를 얻을 수 있습니다.  (Eager initialization 방식에 단점을 보완)   
+    
+**단점 :**    
+* multi-thread 환경에서 여러 곳에서 동시에 getInstance()를 호출할 경우 인스턴스가 두 번 생성될 여지가 있습니다. (동기화 문제) 
+* 메서드가 각각의 순서에 맞게 인스턴스를 생성한다면 문제가 없지만 RaceCondition 발생하면 동시에 생성이 될 가능성이 있다.   
+  * A_Thread : `if(settings == null)` 부합 
+  * B_Thread : `if(settings == null)` 부합 
+  * A_Thread : `settings = new Settings();` 처리
+  * B_Thread : `settings = new Settings();` 처리
+  * 인스턴스 2개 생김  
 
 ## 3. Lazy Initialization - Thread-safe 버전 (늦은 초기화 방식)
 > Lazy Initialization 을 Thread-safe 하게 만드는 방법 : synchronized 키워드를 메서드에 붙여넣어준다.     
@@ -307,12 +308,12 @@ public class Settings {
 
 }
 ```
-* **장점 :**   
-  * Thread-safe한 싱글톤 객체를 보장해줄 수 있다.   
+**장점 :**      
+* Thread-safe한 싱글톤 객체를 보장해줄 수 있다.   
    
-* **단점 :**     
-  * 여러 thread 가 getInstance를 호출하게 되면 높은 cost 비용으로 인해 프로그램 전반에 성능 저하가 발생         
-
+**단점 :**       
+* 여러 thread 가 getInstance를 호출하게 되면 높은 cost 비용으로 인해 프로그램 전반에 성능 저하가 발생           
+   
 ## 4. Initialization on demand holder idiom (holder에 의한 초기화 방식)
 > Lazy initialization 장점을 가져가면서 Thread 간 동기화 문제를 동시에 해결한 방법입니다.    
      
@@ -347,10 +348,52 @@ public class Settings {
 즉 동기화 문제를 jvm이 처리하도록 합니다.      
 
 ```
-여기서는 내용 추가해야할 듯 
+여기서는 JVM의 원자적 특성에 관한 내용 추가해야할 듯 
 ```
 
+## 5. Enum Initialization (Enum 초기화 방식)
+> enum의 문법적 특성을 이용한 싱글톤 객체 생성  
 
+```java
+package SingleTone;
+
+public enum EnumSettings {
+
+    INSTANCE; // 생성자이자 식별자를 의미 -> 밑에 정의된 생성자에 파라미터가 있다면 여기에도 인수 넣어줘야한다.   
+              // 식별자라고 말을 한 것은 해당 문구를 기준으로 객체를 참조하기에 싱글톤 기준이 된다.      
+              
+    private boolean darkMode = false; // 디폴트 값 
+    private int fontSize = 13; // 디폴트 값 
+
+    private EnumSettings() {} // 생성자 
+
+    public EnumSettings getInstance() {
+        return INSTANCE; 
+    }
+
+    public boolean getDarkMode(){
+        return darkMode;
+    }
+    public int getFontSize(){
+        return fontSize;
+    }
+    public void setDarkMode(boolean darkMode){
+        this.darkMode = darkMode;
+    }
+    public void setFontSize(int fontSize){
+        this.fontSize = fontSize;
+    }
+}
+```
+**장점 :**   
+* 싱글톤의 특징(단 한 번의 인스턴스 호출, Thread간 동기화) 을 가지며 비교적 간편하게 사용할 수 있는 방법입니다.
+* 단 한번의 인스턴스 생성을 보장하며 사용이 간편하고 직렬화가 자동으로 처리되고 직렬화가 아무리 복잡하게 이루어져도 여러 객체가 생길 일이 없다.   
+* 리플렉션을 통해 싱글턴을 깨트릴 수도 없다.
+
+**리플렉션이란?**   
+```
+
+```
 
 # 개인적인 생각
 이펙티브 자바 1장에서 생성자 대신 static 팩토리 메서드 사용에 대해서 이야기를 한다.   
