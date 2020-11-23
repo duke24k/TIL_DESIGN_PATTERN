@@ -1,5 +1,6 @@
 # State pattern
-
+![242DFE4A59182D801C](https://user-images.githubusercontent.com/50267433/99933249-d3b67e80-2d9d-11eb-8dd0-a08e58514385.png)     
+       
 [1. State pattern 이란?](#State-pattern-이란)     
 [2. 관련 용어](#관련-용어)     
 [3. 설계 방법](#설계-방법)     
