@@ -235,8 +235,8 @@ State 패턴은 각 상태 구현 클래스들이 자신들의 행위를 수행�
 # 참조
    
 * **블로그 :**    
-
-     
+https://coding-start.tistory.com/247 
+       
 * **동영상**    
 얄팍한 코딩지식_디자인패턴1 : https://www.youtube.com/watch?v=lJES5TQTTWE     
   
