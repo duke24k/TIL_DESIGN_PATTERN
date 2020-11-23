@@ -14,7 +14,6 @@
 * 전략패턴과 비교하자면 아래와 같습니다.   
   * **전략패턴 :** 모드를 체크하여 특정 모드에 따라 알고리즘을 갈아 끼우는 방식
   * **상태패턴 :** 모드 자체를 바꾸어서 `모드+알고리즘`을 한번에 갈아 끼워 실행하는 방식   
-* 참고로 
 
 **정리 : 모드에 알맞는 알고리즘을 사용하는 것이 아닌 모드 자체를 바꾸는 과정을 통해 알맞은 알고리즘을 사용하는 디자인 패턴**              
             
@@ -174,7 +173,6 @@ public class ModeSwitch {
 }
 ```
 
-
 ### 5. 다형성을 이용하여 참조된 ConcreateState 인스턴스의 메서드 사용    
 > 동일한 메서드를 사용하지만 상태에 따라 다른 동작을 실행한다.         
     
@@ -195,15 +193,48 @@ public class ModeSwitch {
 }
 ```  
 
+# Strategy VS State 
+
+**Strategy client**
+```java
+public class Main{
+    public static void main(String[] args){
+        LottoNumbersAutoGenerator lottoNumbersAutoGenerator = new LottoNumbersAutoGenerator(ShuffleRandomStrategy.getInstance());
+        // LottoNumbersAutoGenerator lottoNumbersAutoGenerator = new LottoNumbersAutoGenerator(ShuffleReverseStrategy.getInstance());
+        // LottoNumbersAutoGenerator lottoNumbersAutoGenerator = new LottoNumbersAutoGenerator(ShuffleNothingStrategy.getInstance());
+    }
+}
+```
+Strategy 패턴은 클라이언트 쪽에서 알고리즘을 변경하기 위하여 setter를 호출해 직접 수행할 전략 객체를 주입해주었다.     
+즉, 클라이언트가 구체적인 알고리즘의 수행까지는 몰라도 어느정도 무엇 무엇이 있는지 정도는 알고 있어야 한다는 것이다.    
+    
+**State client**
+```java
+public class Main {
+    public static void main(String[] args) {
+        final ModeSwitch modeSwitch = new ModeSwitch();
+        modeSwitch.onSwitch();
+        modeSwitch.onSwitch();
+        modeSwitch.onSwitch();
+        modeSwitch.onSwitch();
+    }
+}
+
+```
+State 패턴은 각 상태 구현 클래스들이 자신들의 행위를 수행하면서 직접 객체의 상태를 변경해준다.    
+그렇기 때문에 클라이언트 입장에서는 직접 상태를 조작하거나 하지 않아도 된다는 점이다.    
+즉, 클라이언트는 상태를 몰라도 된다라는 뜻이다.   
+
+**결론 :**     
+전략을 직접 클라이언트가 바꿔서 사용해야하는 스트래티지 패턴과는 조금은 상반되며 용도가 조금 다른 패턴이라고 볼 수 있다.   
+   
+* Strategy pattern : 사용자가 쉽게 알고리즘 전략을 바꿀 수 있도록 유연성을 제공. 상속의 한계를 해결하기 위하여 나온 패턴   
+* State pattern : 한 객체가 동일한 동작을 상태에 따라 다르게 수행해야 할 경우 사용하는 패턴   
+ 
 # 참조
-> 베이스 :   
    
 * **블로그 :**    
-https://beomseok95.tistory.com/239 - 깔끔한 정리             
-https://jobjava00.github.io/language/java/basic/singleton/ - 깔끔한 정리    
-https://yaboong.github.io/design-pattern/2018/09/28/thread-safe-singleton-patterns/ - 보충 설명             
-https://medium.com/webeveloper/%EC%8B%B1%EA%B8%80%ED%84%B4-%ED%8C%A8%ED%84%B4-singleton-pattern-db75ed29c36 - 보충 설명         
-https://brunch.co.kr/@kd4/8 - 리플렉션   
+
      
 * **동영상**    
 얄팍한 코딩지식_디자인패턴1 : https://www.youtube.com/watch?v=lJES5TQTTWE     
