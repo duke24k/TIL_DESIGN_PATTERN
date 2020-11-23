@@ -310,8 +310,42 @@ public class Settings {
    
 **단점 :**       
 * 여러 thread 가 getInstance를 호출하게 되면 높은 cost 비용으로 인해 프로그램 전반에 성능 저하가 발생           
-   
-## 4. Initialization on demand holder idiom (holder에 의한 초기화 방식)
+
+## 4. Lazy Initialization. Double Checking Locking(DCL, Thread-safe)
+> 인스턴스가 생성되지 않은 경우에만 동기화 블럭이 실행되게끔 구현하는 방식입니다.    
+    
+```java
+public class Settings {
+
+    private volatile static Settings settings;
+
+    private Settings() { }
+
+    // Lazy Initialization. DCL
+    public Settings getInstance() {
+        if(settings == null) {
+            synchronized(Settings.class) {
+                if(settings == null) {
+                    settings = new Settings();
+                }
+            }
+        }
+        return settings;
+    }
+
+    private boolean darkMode = false; // default false
+    private int fontSize = 13; // default 13
+
+    public  boolean getDarkMode(){return darkMode;}
+    public int getFontSize(){return fontSize;}
+    public void setDarkMode(boolean _darkMode){darkMode = _darkMode;}
+    public void setFontSize(int _fontSize){fontSize = _fontSize;}
+
+}
+```
+
+
+## 5. Initialization on demand holder idiom (holder에 의한 초기화 방식)
 > Lazy initialization 장점을 가져가면서 Thread 간 동기화 문제를 동시에 해결한 방법입니다.    
      
 **Settings**
@@ -357,7 +391,7 @@ public class Settings {
 여기서는 JVM의 원자적 특성에 관한 내용 추가해야할 듯 
 ```
 
-## 5. Enum Initialization (Enum 초기화 방식)
+## 6. Enum Initialization (Enum 초기화 방식)
 > enum의 문법적 특성을 이용한 싱글톤 객체 생성  
 
 ```java
