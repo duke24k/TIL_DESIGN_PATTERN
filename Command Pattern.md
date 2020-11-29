@@ -18,31 +18,38 @@
 구현이 아닌 상속을 이용한 방법을 통해 알아보도록 하겠습니다.      
    
 # 용어 설명  
-* **Command :**
+* **client : 사용자**
+  * 직접 Invoker를 이용해 프로그램을 사용하는 자를 일컫는다.  
+* **Invoker : 호출자**
+  * 기능의 실행을 요청하는 호출자 클래스이다.  
+  * 즉 Command 의존성을 이용해 실제 기능을 수행하는 메서드를 호출한다.
+* **Receiver : 수신자**
+  * ConcreteCommand에서 execute 메서드를 구현할 때 필요한 클래스
+  * 즉, ConcreteCommand의 기능을 실행하기 위해 사용하는 수신자 클래스
+  * '실제 어떤 동작을 해야할지 알고 있는 객체'를 의미하는 것으로 예제에서는 Robot이다.    
+  * 쉽게 말하자면 커멘드 명령의 대상이 되는 클래스이다. 
+* **Command : 명령**
   * 실행될 기능에 대한 인터페이스
   * 실행될 기능과 관련된 추상 메서드를 선언함
   * 예시에는 `execute()` 메서드를 사용할 것이다.   
-* **ConcreteCommand :**
+* **ConcreteCommand : 구체적 명령**
   * 실제로 실행되는 기능을 구현한 클래스 
   * 즉, Command 를 구현한 클래스  
   * 인터페이스의 추상 메서드를 오버라이딩 하여 각 클래스에 맞게 정의한다.   
-* **Invoker :**
-  * 기능의 실행을 요청하는 호출자 클래스이다.  
-  * 즉 Command 의존성을 이용해 실제 기능을 수행하는 메서드를 호출한다.  
-* **Receiver :**
-  * ConcreteCommand에서 execute 메서드를 구현할 때 필요한 클래스
-  * 즉, ConcreteCommand의 기능을 실행하기 위해 사용하는 수신자 클래스
-
+    
 # 설계 방법 
+
+
+# 예제
 * client : MyProgram
-* Command : Command 인터페이스 
-* ConcreteCommand : MoveForwardCommand, TurnCommand, PickupCommand
 * Invoker : RobotKit
 * Receiver : Robot 
+* Command : Command 인터페이스 
+* ConcreteCommand : MoveForwardCommand, TurnCommand, PickupCommand
+
+## 기본 코드  
 
 
-
-        
 # 참고         
 https://gmlwjd9405.github.io/2018/07/07/command-pattern.html - 정리가 깔끔하시다.  
 https://jusungpark.tistory.com/18 - 용어에 대한 쉬운 이해를 도와주신다.      
