@@ -32,6 +32,7 @@
 * **Receiver :**
   * ConcreteCommand에서 execute 메서드를 구현할 때 필요한 클래스
   * 즉, ConcreteCommand의 기능을 실행하기 위해 사용하는 수신자 클래스
+  * 이 방법은 인터페이스를 사용할 때 주로 사용하므로 우리는 사용하지 않을거다.    
 
 # 설계 방법 
 
