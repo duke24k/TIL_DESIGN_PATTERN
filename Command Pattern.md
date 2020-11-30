@@ -48,7 +48,7 @@
 * ConcreteCommand : MoveForwardCommand, TurnCommand, PickupCommand
 
 ## 기본 코드  
-
+정리 필요 
 
 # 참고         
 https://gmlwjd9405.github.io/2018/07/07/command-pattern.html - 정리가 깔끔하시다.  
