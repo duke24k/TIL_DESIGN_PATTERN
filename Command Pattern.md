@@ -136,6 +136,7 @@ public class RobotKit {
 
     public void start() {
         for (Robot.command command : commands) {
+        ///////////////// 변경 구문 ///////////////// 
             if (command == Robot.command.FORWARD) {
                 robot.moveForward(1);
             } else if (command == Robot.command.TURN_LEFT) {
@@ -145,6 +146,7 @@ public class RobotKit {
             } else if (command == Robot.command.PICKUP) {
                 robot.pickup();
             }
+        //////////////////////////////////////////   
         }
     }
 }
@@ -165,6 +167,7 @@ public class RobotKit {
 
     public void start() {
         for (Robot.command command : commands) {
+            // 변경 구문이라 삭제 됨
         }
     }
 }
