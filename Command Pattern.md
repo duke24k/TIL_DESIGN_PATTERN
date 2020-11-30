@@ -121,7 +121,7 @@ public class Robot {
 * Command : Command 인터페이스 
 * ConcreteCommand : MoveForwardCommand, TurnCommand, PickupCommand
 
-### 변경이 이루어질 코드를 추상 클래스 or 인터페이스로 분리한다.   
+## 변경이 이루어질 코드를 추상 클래스 or 인터페이스로 분리한다.   
 **RobotKit 변경 전**
 ```java
 package command_before;
@@ -223,7 +223,7 @@ public class RobotKit {
 * Command가 Robot을 주입 받도록 설정했으므로 Command에 객체를 넣어준다.    
 * 그리고 Command의 공통 메서드인 `execute()`를 실행한다.    
     
-### Command 추상 클래스를 상속한 ConcreteCommand를 정의한다.  
+## Command 추상 클래스를 상속한 ConcreteCommand를 정의한다.  
 
 **MoveForwardCommand**
 ```java
@@ -270,7 +270,7 @@ class PickupCommand extends Command {
 }
 ```
 
-### 클라이언트에서 ConcreteCommand 의존성 주입을 시켜준다.    
+## 클라이언트에서 ConcreteCommand 의존성 주입을 시켜준다.    
 ```java
 public class MyProgram {
     public static void main(String[] args) {
@@ -292,6 +292,10 @@ public class MyProgram {
 * 즉, RobotKit, Robot 은 수정할 필요가 없고 OCP 원칙을 지킬 수 있다.    
    
 
-# 참고         
+# 참고     
+* **블로그 :**    
 https://gmlwjd9405.github.io/2018/07/07/command-pattern.html - 정리가 깔끔하시다.  
 https://jusungpark.tistory.com/18 - 용어에 대한 쉬운 이해를 도와주신다.      
+   
+* **동영상 :**       
+얄팍한 코딩지식_디자인패턴1 : https://www.youtube.com/watch?v=lJES5TQTTWE    
