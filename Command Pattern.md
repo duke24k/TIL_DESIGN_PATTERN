@@ -1,6 +1,8 @@
 # Command pattern
-     
-[1. Command pattern 이란?](#Command-pattern-이란)     
+    
+![Command Pattern](https://user-images.githubusercontent.com/50267433/100602030-b3ab3000-3346-11eb-92a8-6cf388011729.png)    
+   
+[1. Command pattern 이란?](#command-pattern-이란)     
 [2. 용어 설명](#용어-설명)     
 [3. 설계 방법](#설계-방법)     
 [4. 예제](#예제)     
