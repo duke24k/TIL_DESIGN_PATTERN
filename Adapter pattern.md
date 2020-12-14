@@ -53,6 +53,124 @@
 > 기존 전략 패턴을 그대로 가져와 사용한 것입니다.       
 > https://github.com/kwj1270/TIL_DESIGN_PATTERN/blob/main/Strategy%20pattern.md    
 
+**Main**
+```java
+public class Main {
+    public static void main(String[] args) {
+        MyProgram myProgram = new MyProgram();
+        myProgram.testProgram();
+    }
+}
+```
+**MyProgram**
+```java
+public class MyProgram {
+    private SearchButton searchButton = new SearchButton(this);
+
+    public void setModeAll() {
+        searchButton.setSearchStrategy(new SearchStrategyAll());
+    }
+
+    public void setModeImage() {
+        searchButton.setSearchStrategy(new SearchStrategyImage());
+    }
+
+    public void setModeNews() {
+        searchButton.setSearchStrategy(new SearchStrategyNews());
+    }
+
+    public void setModeMap() {
+        searchButton.setSearchStrategy(new SearchStrategyMap());
+    }
+
+    public void testProgram() {
+        searchButton.onClick();
+        setModeImage();
+        searchButton.onClick();
+        setModeNews();
+        searchButton.onClick();
+        setModeMap();
+        searchButton.onClick();
+    }
+}
+```
+
+**SearchButton - Client**
+```java
+public class SearchButton {
+
+    private MyProgram myProgram;
+
+    public SearchButton(MyProgram _myProgram){
+        myProgram = _myProgram;
+    }
+
+    private SearchStrategy searchStrategy = new SearchStrategyAll();
+
+    public void setSearchStrategy(SearchStrategy _searchStrategy) {
+        searchStrategy = _searchStrategy;
+    }
+
+    public void onClick() {
+        searchStrategy.search();
+    }
+
+}
+```
+
+**SearchStrategy - Target Interface/Strategy**
+```java
+public interface SearchStrategy {
+    public void search();
+}
+```
+
+**ConcreateStrategies**
+```java
+class SearchStrategyAll implements SearchStrategy {
+
+    @Override
+    public void search() {
+        System.out.println("SEARCH ALL");
+        // 전체 검색하는 코드
+    }
+}
+```
+```java
+public class SearchStrategyImage implements SearchStrategy {
+
+    @Override
+    public void search() {
+
+        System.out.println("SEARCH IMAGE");
+        // 이미지 검색하는 코드
+    }
+}
+```
+```java
+public class SearchStrategyNews implements SearchStrategy {
+
+    @Override
+    public void search() {
+
+        System.out.println("SEARCH NEWS");
+        // 뉴스 검색하는 코드
+    }
+}
+```
+```java
+class SearchStrategyMap implements SearchStrategy {
+
+    @Override
+    public void search() {
+
+        System.out.println("SEARCH MAP");
+        // 지도 검색하는 코드
+    }
+}
+```
+
+## 
 
 # 참고     
 * **블로그 :**    
