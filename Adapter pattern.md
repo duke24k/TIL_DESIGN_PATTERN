@@ -1,7 +1,7 @@
 # Adapter pattern
-    
-`[사진]` 
-   
+       
+![adapter pattern](https://user-images.githubusercontent.com/50267433/102081717-052de180-3e54-11eb-8439-fecb2fb8a497.gif)    
+       
 [1. Adapter pattern 이란?](#Adapter-pattern-이란)     
 [2. 용어 설명](#용어-설명)     
 [3. 설계 방법](#설계-방법)     
@@ -44,9 +44,9 @@
   * `Client`는 `Target Interface`를 통해 `Adaptee`라이브러리를 사용한다.
   
 # 설계 방법 
-1. `Adaptee`와 현재 `Target Interface`를 비교해본다.  
-2. 
-3. 
+1. `Adaptee`와 현재 `Target Interface`를 비교해본다.      
+2. `Adaptee`와 `Target Interface`를 연결하는 'Adpater 클래스' 작성    
+3. `Adapter` 클래스를 의존성 주입하여 사용한다.    
 
 # 예제
 ## 기존 코드
@@ -228,7 +228,7 @@ public class SearchFindAdapter implements SearchStrategy{
 * `FindAlgorithm`를 구현한 객체를 참조할 수 있는 인스턴스 변수를 정의한다.      
 * `Target Interface`의 추상 메서드 안에서는 `Adaptee`메서드를 호출한다.     
 
-## 3.`Adapter` 클래스를 의존성 주입하여 사용한다.  
+## 3. `Adapter` 클래스를 의존성 주입하여 사용한다.  
 
 **MyProgram**
 ```java
