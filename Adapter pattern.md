@@ -50,8 +50,8 @@
 
 # 예제
 ## 기존 코드
-> 기존 전략 패턴을 그대로 가져와 사용한 것입니다.   
-> 전략 패턴이 궁금하다면 :  
+> 기존 전략 패턴을 그대로 가져와 사용한 것입니다.       
+> https://github.com/kwj1270/TIL_DESIGN_PATTERN/blob/main/Strategy%20pattern.md    
 
 
 # 참고     
