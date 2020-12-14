@@ -44,7 +44,7 @@
   * `Client`는 `Target Interface`를 통해 `Adaptee`라이브러리를 사용한다.
   
 # 설계 방법 
-1. 
+1. `Adaptee`와 현재 `Target Interface`를 비교해본다.  
 2. 
 3. 
 
@@ -170,7 +170,108 @@ class SearchStrategyMap implements SearchStrategy {
 }
 ```
 
-## 
+## 1. `Adaptee`와 현재 `Target Interface`를 비교해본다.  
+
+**FindMovieAlgorithm - adaptee**
+```java
+interface FindAlgorithm {
+    public void find(boolean global);
+}
+
+public class FindMovieAlgorithm implements FindAlgorithm {
+    @Override
+    public void find(boolean global) {
+        System.out.println(
+                "find movie" + (global ? " globally" : "")
+        );
+        // 동영상 검색하는 코드
+        // ...
+        // ...
+    }
+}
+```
+
+**SearchStrategy - Target Interface/Strategy**
+```java
+public interface SearchStrategy {
+    public void search();
+}
+```
+
+* adaptee :    
+  * FindAlgorithm 인터페이스 
+  * find 메서드
+  * 메서드내 인자 있음 
+
+* Target Interface : 
+  * SearchStrategy 인터페이스 
+  * search() 메서드
+  * 메서드내 인자 없음 
+
+## 2. `Adaptee`와 `Target Interface`를 연결하는 'Adpater 클래스' 작성   
+**SearchFindAdapter**
+```java
+public class SearchFindAdapter implements SearchStrategy{
+    private FindAlgorithm findAlgorithm;
+
+    public SearchFindAdapter(FindAlgorithm _findAlgorithm){
+        findAlgorithm = _findAlgorithm;
+    }
+
+    @Override
+    public void search() {
+        findAlgorithm.find(true);
+    }
+}
+```   
+* `Target Interface`를 구현한 `Adpater` 클래스를 만든다.         
+* `FindAlgorithm`를 구현한 객체를 참조할 수 있는 인스턴스 변수를 정의한다.      
+* `Target Interface`의 추상 메서드 안에서는 `Adaptee`메서드를 호출한다.     
+
+## 3.`Adapter` 클래스를 의존성 주입하여 사용한다.  
+
+**MyProgram**
+```java
+public class MyProgram {
+    private SearchButton searchButton = new SearchButton(this);
+
+    public void setModeAll() {
+        searchButton.setSearchStrategy(new SearchStrategyAll());
+    }
+
+    public void setModeImage() {
+        searchButton.setSearchStrategy(new SearchStrategyImage());
+    }
+
+    public void setModeNews() {
+        searchButton.setSearchStrategy(new SearchStrategyNews());
+    }
+
+    public void setModeMap() {
+        searchButton.setSearchStrategy(new SearchStrategyMap());
+    }
+
+    public void setModeMovie() {
+        searchButton.setSearchStrategy(new SearchFindAdapter(new FindMovieAlgorithm()));
+    }
+
+    public void testProgram() {
+        searchButton.onClick();
+        setModeImage();
+        searchButton.onClick();
+        setModeNews();
+        searchButton.onClick();
+        setModeMap();
+        searchButton.onClick();
+        setModeMovie();
+        searchButton.onClick();
+    }
+}
+```
+* `new 어댑터(new Adaptee_구현_클래스())` 방식으로 의존성 주입을 했다.   
+* 가능한 이유는 `Adatper`를 `Target Interface`로 구현했기 때문이다.  
+* 참고로 `Client`인 `SearchButton` 코드는 변경되지 않았다. 
+* 즉, OCP 원칙을 위배하지 않고 기능을 추가시켰다.    
 
 # 참고     
 * **블로그 :**    
