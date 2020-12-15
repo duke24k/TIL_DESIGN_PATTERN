@@ -1,5 +1,7 @@
 # Proxy pattern
-              
+    
+![Proxy-pattern](https://user-images.githubusercontent.com/50267433/102175898-a2842680-3ee3-11eb-8949-5f830ebd6c11.jpg)     
+         
 [1. Proxy pattern 이란?](#Proxy-pattern-이란)     
 [2. 용어 설명](#용어-설명)     
 [3. 설계 방법](#설계-방법)     
@@ -288,6 +290,10 @@ public class MyProgram {
 * `thumbnails.get(2).showPreview();` 경우 객체를 생성한 적이 있으니 다시 다운받지 않는다.    
 
 # 5. 프록시 패턴의 다양한 방법들
+## Remote Proxy
+리모트 프록시 구현에 대해서는 아직 구현 단계에 이르지 못했기 때문에
+추후에 학습해보고 수정하겠습니다.   
+     
 ## Protection Proxy
 글로벌 유통 및 창고를 갖춘 커머스를 운영한다고 가정하자.    
 주문을 처리하기 위해서는 주문을 전달할 창고를 지정해야한다.    
@@ -364,10 +370,11 @@ public class OrderFulfillment implements IOrder {
 
 # 참고     
 * **블로그 :**    
-https://jdm.kr/blog/235    
-https://nanstrong.tistory.com/291
-https://m.blog.naver.com/cncn6666/221784973026   
-https://yaboong.github.io/design-pattern/2018/10/17/proxy-pattern/ 
+https://jdm.kr/blog/235          
+https://lee1535.tistory.com/101     
+https://nanstrong.tistory.com/291       
+https://m.blog.naver.com/cncn6666/221784973026         
+https://yaboong.github.io/design-pattern/2018/10/17/proxy-pattern/        
 
 * **동영상 :**       
 얄팍한 코딩지식_디자인패턴1 : https://www.youtube.com/watch?v=lJES5TQTTWE    
