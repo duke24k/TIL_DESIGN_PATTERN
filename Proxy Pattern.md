@@ -288,11 +288,85 @@ public class MyProgram {
 * `thumbnails.get(2).showPreview();` 경우 객체를 생성한 적이 있으니 다시 다운받지 않는다.    
 
 # 5. 프록시 패턴의 다양한 방법들
+## Protection Proxy
+글로벌 유통 및 창고를 갖춘 커머스를 운영한다고 가정하자.    
+주문을 처리하기 위해서는 주문을 전달할 창고를 지정해야한다.    
+이때 주문서에 재고가 없는 창고로 주문 전달되지 않도록 어떤 창고에 주문을 보낼지 결정할 방법이 필요하다.    
+주문의 전체 처리를 적절한 창고로 라우트하는 시스템을 구성하여,    
+재고가 없는 창고에는 주문을 넣지 않도록 하고 싶다.    
+    
+쉽게 설명하자면 특정 물품의 재고가 `0`이면      
+해당 창고로 주문이 가지 않게끔 만드는 것이다.       
 
+이 경우는 `Protection Proxy`로써 프록시 패턴이 사용되는 경우라고 할 수 있다.   
+`Warehouse(창고)`로 전달되는 요청을 프록시에서 걸러서 보냄으로써    
+`Warehouse(창고)`에 처리할 수 없는 요청이 가지 않도록 막을 수 있다.    
+   
+**IOrder - Subject**
+```java
+public interface IOrder {
+    boolean fulfillOrder(Order order);
+}
+```
+* 클라이언트 소프트웨어가 시스템과 상호작용할 인터페이스를 정의하는 것이 가장 첫 단계다. 
+* 이 인터페이스는 OrderFulfillment, Warehouse 클래스가 구현한다.
+
+**Warehouse - Real Subject**
+```java
+public class Warehouse implements IOrder {
+    private Hashtable<Integer, Integer> stock;
+    private String address;
+
+    @Override
+    public void fulfillOrder(Order order) {
+        for (Item item: order.getItemList()) {
+            Integer sku = item.getSku();
+            this.stock.replace(sku, stock.get(sku) - 1);
+            
+            /* 포장, 배송 등 기타 작업들이 추가적으로 이루어질 수 있음 */
+            
+            processOne();
+            processTwo();
+            processThree();
+            
+        }
+    }
+
+    public int currentInventory(Item item) {
+        return stock.getOrDefault(stock.get(item.getSku()), 0);
+    }
+}
+```
+* 두번째 단계는 주체 클래스를 구현하는 것이다.   
+* 이 주체 클래스는 실질적으로 주문을 처리하는 구현 메소드를 가지며,        
+프록시 클래스에서 주문이 가능한지 확인할때 사용할 메소드를 가지고 있다.   
+
+**OrderFulfillment - Proxy**
+```java
+public class OrderFulfillment implements IOrder {
+    private List<Warehouse> warehouses;
+
+    @Override
+    public void fulfillOrder(Order order) {
+        for (Item item: order.getItemList()) {
+            for (Warehouse warehouse: warehouses) {
+                if (warehouse.currentInventory(item) != 0) {
+                    warehouse.fulfillOrder();
+                }
+            }
+        }
+    }
+}
+```
+* 마지막으로 프록시 클래스를 구현한다.     
+* 프록시 클래스에서는 주문이 가능한지 확인하는 모든 작업이 이루어지며,     
+주문을 이행할 수 있는 경우에만 주체 클래스에 요청을 위임한다.     
 
 # 참고     
 * **블로그 :**    
 https://jdm.kr/blog/235    
+https://nanstrong.tistory.com/291
+https://m.blog.naver.com/cncn6666/221784973026   
 https://yaboong.github.io/design-pattern/2018/10/17/proxy-pattern/ 
 
 * **동영상 :**       
