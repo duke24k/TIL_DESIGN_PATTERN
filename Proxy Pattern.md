@@ -205,6 +205,10 @@ public class ProxyThumbnail implements Thumbnail {
     }
 }
 ```
+* 기존 `Real Subject` 의 변수와 메서드를 그대로 가져왔다.   
+* 차이점으로는 실제 `Real Subject`인 `RealThumbnail` 참조 변수가 생겼다.   
+* 방식마다 참조 변수를 넣는 경우와 넣지 않는 경우가 있으니 참고 바란다.  
+* 필자 개인적인 생각으로 싱글턴 패턴으로 객체를 만들면 더 좋지 않을까 싶다.    
 
 ## 3. `Proxy` 클래스에서 가벼운 작업과 무거운 작업을 분리 및 `Real Subject` 호출
 
@@ -232,6 +236,10 @@ public class ProxyThumbnail implements Thumbnail {
     }
 }
 ```
+* 실제 가벼운 동작과 무거운 동작을 처리하는 로직을 넣었다.   
+* 무거운 동작은 `RealThumbnail` 참조 변수를 통해 실행하게끔 했다.   
+* 만약 `RealThumbnail` 객체를 참조하지 않으면 새로 참조한다.   
+* `RealThumbnail`를 통해 실제 작업을 실행하게끔 만들면 된다.    
 
 ## 4. `Client`에서 OCP를 위한 인터페이스 작업으로 변경 및 실행
 
@@ -276,6 +284,8 @@ public class MyProgram {
     }
 }
 ```
+* OCP 전략 원칙을 지키기 위해 직접적인 클래스가 아닌 인터페이스 자료형으로 바꾸었다.       
+* `thumbnails.get(2).showPreview();` 경우 객체를 생성한 적이 있으니 다시 다운받지 않는다.    
 
 # 5. 프록시 패턴의 다양한 방법들
 
