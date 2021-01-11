@@ -19,20 +19,20 @@
 ## 관련 용어    
 * **Context :** 특정 알고리즘을 사용하는 객체 
   * Strategy 패턴을 이용하는 역할 수행      
-  * 즉, ConcreateStrategy 인스턴스를 가진 대상            
+  * 즉, ConcreteStrategy 인스턴스를 가진 대상            
   * 필요에 따라 동적으로 구체적인 전략을 바꿀수 있도록 한다.(DI)       
 * **Strategy :** 특정한 알고리즘을 추상화된 인터페이스나 클래스로 정의한 오브젝트                
   * 주로 Functional Interface 로 구현하며 추상 메서드는 1개
   * 다형성을 이용하여 코드의 변경없이 다양한 알고리즘을 호출하는 역할 
-* **ConcreateStrategy :** Strategy 의 추상 메서드를 구현한 클래스   
+* **ConcreteStrategy :** Strategy 의 추상 메서드를 구현한 클래스   
   * 전략 패턴에서 명시한 알고리즘을 실제로 각 용도에 알맞게 구현한 클래스    
   
 ## 설계 방법
 1. Context에서 변경(확장)될 것과 변하지 않을 것을 엄격히 구분
 2. 변경(확장)될 것을 인터페이스로 추출하여 Strategy 정의
-3. Strategy 인터페이스를 구현한 ConcreateStrategy 클래스 정의
+3. Strategy 인터페이스를 구현한 ConcreteStrategy 클래스 정의
 4. Context에서 Strategy 인터페이스에 의존하도록 코드를 작성
-5. 다형성을 이용하여 참조된 ConcreateStrategy 인스턴스의 메서드 사용 
+5. 다형성을 이용하여 참조된 ConcreteStrategy 인스턴스의 메서드 사용 
     
 ## 예제   
 ### 1. 변경(확장)될 것과 변하지 않을 것을 엄격히 구분
@@ -93,8 +93,8 @@ public interface ShuffleStrategy{
 }
 ```
 
-### 3. Strategy 인터페이스를 구현한 ConcreateStrategy 클래스 정의
-**ShuffleRandomStrategy - ConcreateStrategy**
+### 3. Strategy 인터페이스를 구현한 ConcreteStrategy 클래스 정의
+**ShuffleRandomStrategy - ConcreteStrategy**
 ```java
 pulblic class ShuffleRandomStrategy implements ShuffleStrategy {
     private static ShuffleRandomStrategy shuffleRandomStrategy = new ShuffleRandomStrategy();
@@ -111,7 +111,7 @@ pulblic class ShuffleRandomStrategy implements ShuffleStrategy {
     }
 }
 ```
-**ShuffleReverseStrategy - ConcreateStrategy**
+**ShuffleReverseStrategy - ConcreteStrategy**
 ```java
 pulblic class ShuffleReverseStrategy implements ShuffleStrategy {
     private static ShuffleReverseStrategy shuffleReverseStrategy = new ShuffleReverseStrategy();
@@ -128,7 +128,7 @@ pulblic class ShuffleReverseStrategy implements ShuffleStrategy {
     }
 }
 ```
-**ShuffleNothingStrategy - ConcreateStrategy**
+**ShuffleNothingStrategy - ConcreteStrategy**
 ```java
 pulblic class ShuffleNothingStrategy implements ShuffleStrategy {
     private static ShuffleNothingStrategy shuffleNothingStrategy = new ShuffleNothingStrategy();
@@ -183,7 +183,7 @@ public class LottoNumbersAutoGenerator {
 }
 ```
 
-### 5. 다형성을 이용하여 참조된 ConcreateStrategy 인스턴스의 메서드 사용 
+### 5. 다형성을 이용하여 참조된 ConcreteStrategy 인스턴스의 메서드 사용 
 **LottoNumbersAutoGenerator - Context**
 ```java
 public class LottoNumbersAutoGenerator {
